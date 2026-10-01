@@ -1,0 +1,4 @@
+collections:
+  vault:
+    path: /Users/shameek/Desktop/everything else/Obsidian Vault
+    pattern: "**/*.md"

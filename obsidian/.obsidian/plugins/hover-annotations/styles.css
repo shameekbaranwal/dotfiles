@@ -1,0 +1,414 @@
+/* ==========================================================================
+   1. 批注高亮样式 (Annotation Highlights)
+   ========================================================================== */
+
+/* 定义全局变量 (Defaults, will be overridden by JS) */
+:root {
+    --ob-annotation-bg-opacity-light: 0.2;
+    --ob-annotation-bg-opacity-dark: 0.25;
+    --ob-annotation-tooltip-width: 400px;
+    --ob-annotation-tooltip-font-scale: 1.0;
+}
+
+/* 默认样式 (无边框，无背景，仅定义基础属性) */
+.ob-comment {
+    --highlight-color: #ff9900;
+    
+    /* 默认使用 CSS 变量，但在 JS 中会动态更新这些变量 */
+    --highlight-bg-alpha: var(--ob-annotation-bg-opacity-light); 
+    --highlight-bg-hover-alpha: calc(var(--highlight-bg-alpha) + 0.2);
+    
+    cursor: help;
+    transition: background-color 0.2s;
+    border-radius: 3px;
+    padding: 0 2px;
+}
+
+/* 浅色模式优化 */
+.theme-light .ob-comment { 
+    --highlight-bg-alpha: var(--ob-annotation-bg-opacity-light);
+}
+
+/* 深色模式优化 */
+.theme-dark .ob-comment { 
+    --highlight-bg-alpha: var(--ob-annotation-bg-opacity-dark);
+}
+
+/* --- 显示模式控制 (Display Modes) --- */
+
+/* 1. 下划线模式 */
+body.ob-show-underline .ob-comment {
+    border-bottom: 2px solid var(--highlight-color) !important;
+}
+
+/* 2. 背景高亮模式 */
+body.ob-show-background .ob-comment {
+    background-color: rgba(255, 153, 0, var(--highlight-bg-alpha)) !important;
+}
+body.ob-show-background .ob-comment:hover {
+    background-color: rgba(255, 153, 0, var(--highlight-bg-hover-alpha)) !important;
+}
+
+/* 3. 图标模式 (伪元素) */
+body.ob-show-icon .ob-comment::after {
+    content: "📝";
+    font-size: 0.85em;
+    margin-left: 4px;
+    opacity: 0.8;
+    width: 1.05em;
+    height: 1.05em;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+body.ob-icon-only-mode .ob-comment {
+    cursor: text;
+}
+
+body.ob-icon-only-mode .ob-comment::after {
+    cursor: pointer;
+}
+
+/* --- 颜色变体 (Color Variants) --- */
+/* 
+   为了支持叠加模式，我们需要确保颜色变体也能正确应用 !important，
+   或者通过 CSS 变量来控制颜色，上面的通用规则已经使用了变量，所以这里只需要更新变量即可。
+   但是，旧的颜色类直接设置了 background-color。我们需要调整策略。
+   
+   最佳策略：让颜色类只定义 CSS 变量 --highlight-color。
+   背景色由上面的通用规则统一处理。
+*/
+
+.ob-comment.red { --highlight-color: #e5484d; }
+.ob-comment.yellow { --highlight-color: #e6c229; }
+.ob-comment.green { --highlight-color: #2f9d62; }
+.ob-comment.cyan { --highlight-color: #1abc9c; }
+.ob-comment.blue { --highlight-color: #3498db; }
+.ob-comment.purple { --highlight-color: #9b59b6; }
+.ob-comment.gray { --highlight-color: #95a5a6; }
+
+/* 
+   由于颜色变体原本也设置了 background-color，我们需要覆盖它，
+   或者让它也遵循 body.ob-show-background 的逻辑。
+   现在的通用规则 body.ob-show-background .ob-comment 使用了 !important，
+   它会覆盖颜色类中（如果有）的普通 background-color 声明。
+   但是，上面的 .ob-comment.red 等类目前只定义了变量（在我修改后）。
+   为了安全起见，我们需要确保颜色类也针对不同模式有正确的表现。
+   
+   其实，只要 .ob-comment 及其颜色变体只定义变量，
+   然后由 body.ob-show-background .ob-comment 统一使用这些变量设置 background-color，
+   逻辑就完美了。
+   
+   我们需要修正颜色变体的定义，去掉其中的 background-color 和 border-bottom 属性，
+   改为只定义变量。
+*/
+
+/* 移除旧的特定颜色背景定义，它们将由通用规则接管 */
+.ob-comment.red, .ob-comment.yellow, .ob-comment.green, 
+.ob-comment.cyan, .ob-comment.blue, .ob-comment.purple, .ob-comment.gray {
+    /* No direct styles, just variable updates above */
+}
+
+/* 处理 Hover 状态的颜色变量更新 */
+.ob-comment.red { background-color: transparent; } /* Reset */
+body.ob-show-background .ob-comment.red { background-color: rgba(229, 72, 77, var(--highlight-bg-alpha)) !important; }
+body.ob-show-background .ob-comment.red:hover { background-color: rgba(229, 72, 77, var(--highlight-bg-hover-alpha)) !important; }
+
+body.ob-show-background .ob-comment.yellow { background-color: rgba(230, 194, 41, var(--highlight-bg-alpha)) !important; }
+body.ob-show-background .ob-comment.yellow:hover { background-color: rgba(230, 194, 41, var(--highlight-bg-hover-alpha)) !important; }
+
+body.ob-show-background .ob-comment.green { background-color: rgba(47, 157, 98, var(--highlight-bg-alpha)) !important; }
+body.ob-show-background .ob-comment.green:hover { background-color: rgba(47, 157, 98, var(--highlight-bg-hover-alpha)) !important; }
+
+body.ob-show-background .ob-comment.cyan { background-color: rgba(26, 188, 156, var(--highlight-bg-alpha)) !important; }
+body.ob-show-background .ob-comment.cyan:hover { background-color: rgba(26, 188, 156, var(--highlight-bg-hover-alpha)) !important; }
+
+body.ob-show-background .ob-comment.blue { background-color: rgba(52, 152, 219, var(--highlight-bg-alpha)) !important; }
+body.ob-show-background .ob-comment.blue:hover { background-color: rgba(52, 152, 219, var(--highlight-bg-hover-alpha)) !important; }
+
+body.ob-show-background .ob-comment.purple { background-color: rgba(155, 89, 182, var(--highlight-bg-alpha)) !important; }
+body.ob-show-background .ob-comment.purple:hover { background-color: rgba(155, 89, 182, var(--highlight-bg-hover-alpha)) !important; }
+
+body.ob-show-background .ob-comment.gray { background-color: rgba(149, 165, 166, var(--highlight-bg-alpha)) !important; }
+body.ob-show-background .ob-comment.gray:hover { background-color: rgba(149, 165, 166, var(--highlight-bg-hover-alpha)) !important; }
+
+
+
+/* ==========================================================================
+   2. 悬浮弹窗样式 (Tooltip) - Native Look
+   ========================================================================== */
+body .ob-annotation-tooltip {
+    position: absolute;
+    /* 使用 Obsidian 原生变量 */
+    background-color: var(--background-secondary); 
+    color: var(--text-normal);
+    /* 整合原有边框逻辑 */
+    border: 1px solid var(--modifier-border);
+    box-shadow: var(--shadow-l);
+    
+    padding: 8px 10px;
+    border-radius: 6px;
+    
+    /* Ensure markdown content (like tables) wraps and displays correctly */
+    white-space: normal;
+    
+    /* 字体大小：动态缩放 */
+    font-size: calc(var(--font-ui-medium) * var(--ob-annotation-tooltip-font-scale));
+    line-height: 1.4;
+    
+    /* 宽度：动态设置 */
+    max-width: min(var(--ob-annotation-tooltip-width), 90vw);
+    white-space: normal; /* Ensure text wraps */
+    
+    z-index: var(--layer-popover);
+    pointer-events: none;
+    
+    opacity: 0;
+    /* 初始状态向下偏移 8px，显示时上浮到 0 */
+    transform: translateY(8px);
+    /* 增加 transition 动效，使用 cubic-bezier 增加一点弹性感 */
+    transition: opacity 0.2s ease-out, transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+body .ob-annotation-tooltip.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Reset margins for Markdown rendered content inside tooltip */
+body .ob-annotation-tooltip p {
+    margin: 0;
+}
+
+/* Plain text tooltip content */
+body .ob-annotation-tooltip pre.ob-annotation-tooltip-plain {
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+
+/* ==========================================================================
+   7. 表格样式支持 (Table Support in Tooltip)
+   ========================================================================== */
+body .ob-annotation-tooltip table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 8px 0;
+    width: max-content;
+    max-width: 100%;
+}
+
+body .ob-annotation-tooltip th,
+body .ob-annotation-tooltip td {
+    padding: 4px 10px;
+    border: 1px solid var(--background-modifier-border);
+}
+
+body .ob-annotation-tooltip th {
+    background-color: var(--background-secondary);
+    font-weight: 600;
+}
+
+body .ob-annotation-tooltip tr:nth-child(even) {
+    background-color: var(--background-primary-alt);
+}
+
+
+/* ==========================================================================
+   3. 模态框颜色选择器 (Color Picker UI)
+   ========================================================================== */
+.annotation-color-container {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 4px 2px;
+}
+
+.annotation-color-item {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent; 
+    transition: all 0.15s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* 键盘聚焦状态 */
+.annotation-color-item:focus-visible {
+    outline: 2px solid var(--interactive-accent);
+    outline-offset: 2px;
+}
+
+.annotation-color-item:hover {
+    transform: scale(1.15);
+}
+
+/* 选中状态 */
+.annotation-color-item.is-active {
+    border-color: var(--background-primary);
+    outline: 2px solid var(--interactive-accent);
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.theme-dark .annotation-color-item {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+/* ==========================================================================
+   4. Live Preview 辅助
+   ========================================================================== */
+.cm-ob-comment-tag-hide {
+    display: none;
+}
+
+/* ==========================================================================
+   5. 弹窗 UI 增强 (Modal UI Enhancements)
+   ========================================================================== */
+
+/* 1. 放宽弹窗宽度 (Adjusted per user request: 80% of previous size) */
+.ob-annotation-modal-container {
+    width: 640px !important; 
+    max-width: 80vw !important;
+}
+
+.annotation-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.annotation-header-row h2 {
+    margin: 0;
+    flex: 0 1 auto;
+}
+
+.annotation-color-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* 2. 输入框美化 */
+.annotation-input {
+    background-color: var(--background-modifier-form-field);
+    border: 1px solid var(--background-modifier-border);
+    color: var(--text-normal);
+    border-radius: var(--input-radius);
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-family: var(--font-text);
+    /* 字体调大 */
+    font-size: var(--font-ui-medium);
+    line-height: 1.5;
+    transition: all 0.2s ease;
+    resize: none; /* Disable manual resize since we use auto-resize */
+    overflow-y: hidden; /* Hide scrollbar for auto-resize */
+    min-height: 5.5em;
+}
+
+.annotation-input:focus {
+    border-color: var(--interactive-accent);
+    box-shadow: 0 0 0 2px var(--background-modifier-border-focus);
+    outline: none;
+}
+
+.annotation-key-hint {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.9em;
+    text-align: right;
+}
+
+.modal-button-container {
+    margin-top: 20px;
+}
+
+.modal-button-container.inline {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 0;
+}
+
+@media (max-width: 768px) {
+    .ob-annotation-modal-container {
+        max-width: 92vw !important;
+    }
+
+    .annotation-header-row {
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .annotation-header-row h2 {
+        flex-shrink: 0;
+        white-space: nowrap;
+        line-height: 1.1;
+    }
+
+    .annotation-key-hint {
+        flex: 1 1 auto;
+        font-size: 0.82em;
+        line-height: 1.25;
+    }
+
+    .annotation-input {
+        min-height: 8.5em;
+    }
+
+    .annotation-color-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .annotation-color-container {
+        width: 100%;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 6px;
+    }
+
+    .annotation-color-item {
+        width: 24px;
+        height: 24px;
+    }
+
+    .modal-button-container.inline {
+        width: 100%;
+    }
+
+    .modal-button-container.inline button {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+}
+
+/* ==========================================================================
+   6. 一键开关 (Toggle Visibility)
+   ========================================================================== */
+/* 当 body 拥有此 class 时，隐藏批注的视觉样式 */
+body.ob-hide-annotations .ob-comment {
+    border-bottom: none !important;
+    background-color: transparent !important;
+}
+
+/* 同时隐藏 Tooltip */
+body.ob-hide-annotations .ob-annotation-tooltip {
+    display: none !important;
+}

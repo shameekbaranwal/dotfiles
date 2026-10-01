@@ -1,0 +1,28 @@
+{
+  "title": "Caps Lock as Herdr/tmux prefix (Ctrl+B)",
+  "rules": [
+    {
+      "description": "Caps Lock → Ctrl+B in Kitty only (Herdr prefix; Ctrl+B still works too)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "caps_lock",
+            "modifiers": { "optional": ["any"] }
+          },
+          "to": [
+            { "key_code": "b", "modifiers": ["left_control"] }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^net\\.kovidgoyal\\.kitty$"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "defaultColor": "",
+  "hideAnnotations": false,
+  "enableUnderline": true,
+  "enableBackground": true,
+  "enableIcon": false,
+  "iconTooltipTrigger": "hover",
+  "lightOpacity": 20,
+  "darkOpacity": 25,
+  "tooltipWidth": 800,
+  "tooltipFontScale": 110,
+  "submitShortcut": "enter",
+  "newlineShortcut": "shift-enter",
+  "autoNormalizeAfterExit": true,
+  "enableMarkdown": true,
+  "language": "en"
+}

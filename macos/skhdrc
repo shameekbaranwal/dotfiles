@@ -1,0 +1,223 @@
+# ====================================================================
+# SKHD CONFIGURATION - Keyboard Shortcuts for Desktop Management
+# ====================================================================
+# This configuration file defines keyboard shortcuts for navigating
+# and managing spaces (desktops) and windows with yabai.
+#
+# IMPORTANT: After editing this file, restart skhd with:
+#   skhd --restart-service
+# ====================================================================
+
+# --------------------------------------------------------------------
+# KEYBINDING SYNTAX
+# --------------------------------------------------------------------
+# Format: <modifiers> - <key> : <command>
+#
+# Modifiers:
+#   cmd   = Command (⌘)
+#   alt   = Option (⌥)
+#   shift = Shift (⇧)
+#   ctrl  = Control (⌃)
+#   fn    = Function key
+#
+# Combine modifiers with +, e.g., cmd + shift - t
+#
+# Examples:
+#   alt - 1           = Option + 1
+#   cmd + shift - t   = Command + Shift + T
+#   ctrl - left       = Control + Left Arrow
+# --------------------------------------------------------------------
+
+# ====================================================================
+# SPACE (DESKTOP) NAVIGATION - Jump directly to Desktop 1-8
+# ====================================================================
+# These shortcuts let you jump directly to any desktop by number
+# Modifier: alt (Option key) + number
+
+alt - 1 : yabai -m space --focus 1
+alt - 2 : yabai -m space --focus 2
+alt - 3 : yabai -m space --focus 3
+alt - 4 : yabai -m space --focus 4
+alt - 5 : yabai -m space --focus 5
+alt - 6 : yabai -m space --focus 6
+alt - 7 : yabai -m space --focus 7
+alt - 8 : yabai -m space --focus 8
+
+# Alternative: Use labels instead of numbers (if you prefer names)
+# alt - m : yabai -m space --focus main
+# alt - c : yabai -m space --focus communication
+# alt - d : yabai -m space --focus dev1
+
+# ====================================================================
+# SPACE NAVIGATION - Previous/Next
+# ====================================================================
+# Navigate to adjacent desktops
+
+# Go to previous desktop
+alt - left : yabai -m space --focus prev || yabai -m space --focus last
+
+# Go to next desktop
+alt - right : yabai -m space --focus next || yabai -m space --focus first
+
+# Recent space (go back to last used space)
+alt - tab : yabai -m space --focus recent
+
+# ====================================================================
+# MOVE WINDOWS BETWEEN SPACES
+# ====================================================================
+# Move the currently focused window to a specific desktop
+# Modifier: shift + alt + number
+
+shift + alt - 1 : yabai -m window --space 1
+shift + alt - 2 : yabai -m window --space 2
+shift + alt - 3 : yabai -m window --space 3
+shift + alt - 4 : yabai -m window --space 4
+shift + alt - 5 : yabai -m window --space 5
+shift + alt - 6 : yabai -m window --space 6
+shift + alt - 7 : yabai -m window --space 7
+shift + alt - 8 : yabai -m window --space 8
+
+# Move window to previous/next space
+shift + alt - left : yabai -m window --space prev
+shift + alt - right : yabai -m window --space next
+
+# ====================================================================
+# MOVE WINDOWS BETWEEN SPACES AND FOLLOW
+# ====================================================================
+# Move window to space AND switch to that space
+# Modifier: ctrl + alt + number
+
+ctrl + alt - 1 : yabai -m window --space 1; yabai -m space --focus 1
+ctrl + alt - 2 : yabai -m window --space 2; yabai -m space --focus 2
+ctrl + alt - 3 : yabai -m window --space 3; yabai -m space --focus 3
+ctrl + alt - 4 : yabai -m window --space 4; yabai -m space --focus 4
+ctrl + alt - 5 : yabai -m window --space 5; yabai -m space --focus 5
+ctrl + alt - 6 : yabai -m window --space 6; yabai -m space --focus 6
+ctrl + alt - 7 : yabai -m window --space 7; yabai -m space --focus 7
+ctrl + alt - 8 : yabai -m window --space 8; yabai -m space --focus 8
+
+# ====================================================================
+# WINDOW FOCUS - Navigate between windows
+# ====================================================================
+
+# Focus window in direction (if using tiling mode)
+# alt - h : yabai -m window --focus west
+# alt - j : yabai -m window --focus south
+# alt - k : yabai -m window --focus north
+# alt - l : yabai -m window --focus east
+
+# Cycle through windows on current space
+alt - n : yabai -m window --focus next || yabai -m window --focus first
+alt - p : yabai -m window --focus prev || yabai -m window --focus last
+
+# Focus most recent window
+# alt - r : yabai -m window --focus recent
+
+# ====================================================================
+# DISPLAY (MONITOR) MANAGEMENT
+# ====================================================================
+
+# Focus display (monitor)
+ctrl + alt - 1 : yabai -m display --focus 1
+ctrl + alt - 2 : yabai -m display --focus 2
+
+# Move window to display and follow focus
+ctrl + cmd - 1 : yabai -m window --display 1; yabai -m display --focus 1
+ctrl + cmd - 2 : yabai -m window --display 2; yabai -m display --focus 2
+
+# Cycle through displays
+ctrl + alt - left : yabai -m display --focus prev || yabai -m display --focus last
+ctrl + alt - right : yabai -m display --focus next || yabai -m display --focus first
+
+# ====================================================================
+# WINDOW MANAGEMENT
+# ====================================================================
+
+# Toggle window float
+shift + alt - f : yabai -m window --toggle float
+
+# Toggle window fullscreen
+shift + alt - return : yabai -m window --toggle zoom-fullscreen
+
+# Toggle window native fullscreen
+shift + alt - f : yabai -m window --toggle native-fullscreen
+
+# Center floating window
+shift + alt - c : yabai -m window --grid 4:4:1:1:2:2
+
+# Make floating window fill screen
+shift + alt - m : yabai -m window --grid 1:1:0:0:1:1
+
+# Make floating window fill left half
+shift + alt - left : yabai -m window --grid 1:2:0:0:1:1
+
+# Make floating window fill right half
+shift + alt - right : yabai -m window --grid 1:2:1:0:1:1
+
+# ====================================================================
+# LAYOUT MANAGEMENT
+# ====================================================================
+
+# Rotate tree layout
+# alt - r : yabai -m space --rotate 90
+
+# Mirror tree (flip horizontally)
+# alt - y : yabai -m space --mirror y-axis
+
+# Mirror tree (flip vertically)
+# alt - x : yabai -m space --mirror x-axis
+
+# Toggle layout mode (bsp/float) for current space
+# ctrl + alt - space : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "float" else "bsp" end')
+
+# ====================================================================
+# YABAI CONTROLS
+# ====================================================================
+
+# Restart yabai
+ctrl + alt + cmd - r : yabai --restart-service
+
+# Stop yabai
+# ctrl + alt + cmd - q : yabai --stop-service
+
+# ====================================================================
+# QUICK DESKTOP ASSIGNMENTS - For unlisted apps
+# ====================================================================
+# These are convenience shortcuts to quickly move the current window
+# to Desktop 8 (your default/misc desktop for unlisted apps)
+
+# Send current window to Desktop 8 (misc/default)
+shift + alt - 0 : yabai -m window --space 8
+
+# ====================================================================
+# CUSTOM SHORTCUTS - Add your own below
+# ====================================================================
+
+# Example: Launch applications with keyboard shortcuts
+# cmd + alt - return : open -a "iTerm"
+# cmd + alt - b : open -a "Google Chrome"
+# cmd + alt - s : open -a "Slack"
+
+# Example: Quick access to specific apps by focusing their desktop
+# cmd + alt - s : yabai -m space --focus 3  # Jump to Slack (Desktop 3)
+# cmd + alt - w : yabai -m space --focus 5  # Jump to WhatsApp (Desktop 5)
+# cmd + alt - i : yabai -m space --focus 7  # Jump to IntelliJ (Desktop 7)
+
+# ====================================================================
+# TIPS FOR EXTENDING THIS CONFIG
+# ====================================================================
+# 1. Test keybindings without restart: Just save this file, skhd auto-reloads
+# 2. Check if a key combo is already used: System Settings > Keyboard > Shortcuts
+# 3. View skhd logs: tail -f /usr/local/var/log/skhd/skhd.out.log
+# 4. Disable a binding: Comment it out with # at the start of the line
+# 5. Find key names: See https://github.com/koekeishiya/skhd/issues/1
+#
+# Common conflicts to watch for:
+# - cmd + space: Spotlight (can disable in System Settings)
+# - ctrl + arrow: Mission Control desktop switching (can disable)
+# - cmd + tab: Application switcher
+#
+# Recommendation: Use alt (Option) based shortcuts to minimize conflicts
+#
+# More documentation: https://github.com/koekeishiya/skhd
+# ====================================================================

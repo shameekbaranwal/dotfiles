@@ -1,0 +1,9 @@
+{
+  "id": "read-aloud",
+  "name": "Read Aloud (Kokoro)",
+  "version": "1.0.0",
+  "minAppVersion": "1.4.0",
+  "description": "Read the active note aloud with a local Kokoro voice. Clean (faithful) or LLM-narrated modes.",
+  "author": "shameek",
+  "isDesktopOnly": true
+}

@@ -1,0 +1,12 @@
+.DS_Store
+
+# Secrets never live here. Keep them in ~/.secrets.zsh (sourced by .zshrc).
+*.secrets*
+.env
+.ENV.local
+
+# Obsidian layout cache
+obsidian/.obsidian/workspace*.json
+
+# herdr downloads plugins itself; only plugins/config is tracked
+terminal/herdr/plugins/github/

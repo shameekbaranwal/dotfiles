@@ -1,0 +1,15 @@
+{
+  "accentColor": "#043c86",
+  "theme": "obsidian",
+  "cssTheme": "Obsidian Nord",
+  "interfaceFontFamily": "SN Pro,Microsoft Sans Serif,JetBrainsMonoNL Nerd Font",
+  "textFontFamily": "SN Pro,JetBrainsMono Nerd Font,Microsoft Sans Serif",
+  "monospaceFontFamily": "JetBrainsMonoNL Nerd Font Mono,CaskaydiaMono Nerd Font Mono",
+  "baseFontSize": 16,
+  "showViewHeader": true,
+  "translucency": false,
+  "nativeMenus": false,
+  "enabledCssSnippets": [
+    "links"
+  ]
+}

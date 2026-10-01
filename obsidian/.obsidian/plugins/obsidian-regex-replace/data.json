@@ -1,0 +1,10 @@
+{
+  "findText": "  inc-24",
+  "replaceText": "inc-99",
+  "useRegEx": true,
+  "selOnly": false,
+  "caseInsensitive": false,
+  "processLineBreak": false,
+  "processTab": false,
+  "prefillFind": false
+}

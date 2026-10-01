@@ -1,0 +1,31 @@
+<application>
+  <component name="com.intellij.ide.ui.customization.CustomActionsSchema">
+    <group value="Back" is_action="true" action_type="1" position="4">
+      <path value="root" />
+      <path value="Touch Bar" />
+      <path value="Default" />
+    </group>
+    <group seperator="true" action_type="1" position="5">
+      <path value="root" />
+      <path value="Main Toolbar" />
+      <path value="Right" />
+    </group>
+    <group value="Forward" is_action="true" action_type="1" position="5">
+      <path value="root" />
+      <path value="Touch Bar" />
+      <path value="Default" />
+    </group>
+    <group value="Back" is_action="true" action_type="1" position="6">
+      <path value="root" />
+      <path value="Main Toolbar" />
+      <path value="Right" />
+    </group>
+    <group value="Forward" is_action="true" action_type="1" position="7">
+      <path value="root" />
+      <path value="Main Toolbar" />
+      <path value="Right" />
+    </group>
+    <action id="NavigateInFileGroup" icon="jar:file:/Applications/IntelliJ%20IDEA%20CE.app/Contents/lib/app-client.jar!/expui/toolbar/unknown.svg" />
+    <action id="GoToMenu" icon="jar:file:/Applications/IntelliJ%20IDEA%20CE.app/Contents/lib/app-client.jar!/expui/toolbar/unknown.svg" />
+  </component>
+</application>

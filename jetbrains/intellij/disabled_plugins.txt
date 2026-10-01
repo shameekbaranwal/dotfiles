@@ -1,0 +1,6 @@
+com.cap.plugin.hadoop
+com.github.palmerovicdev.atomonedarkazure
+com.intellij.bigdatatools.kafka
+com.intellij.ml.llm
+com.sourcegraph.jetbrains
+org.jetbrains.junie

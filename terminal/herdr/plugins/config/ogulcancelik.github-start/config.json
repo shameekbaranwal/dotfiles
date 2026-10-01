@@ -1,0 +1,19 @@
+{
+  "defaultAgent": "claude",
+  "agents": {
+    "claude": {
+      "command": "claude -n pr-review",
+      "renameCommand": " "
+    }
+  },
+  "promptTemplate": "see {url}, we are going to review the PR there. let's start with first understanding the problem it is trying to solve, try to describe the problem completely in short, and then try to review the PR for correctness and completeness. Our review should be focussed on overall code style correctness, naming nits, any other nits, observability (relevant metrics and logs), abstraction honouring (should not break basic abstractions assumed by the repository), and general error handling (all errors and exceptions should be tracked, and cascades should be handled).",
+  "tabLabelTemplate": "{repoName}-{kind}-{number}",
+  "sessionIdTemplate": "gh-{repoName}-{kind}-{number}",
+  "unknownSessionId": "gh-item",
+  "timing": {
+    "afterAgentStartMs": 1500,
+    "afterRenameMs": 700,
+    "afterOverlayCloseFocusMs": 400
+  }
+}
+

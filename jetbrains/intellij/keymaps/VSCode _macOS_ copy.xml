@@ -1,0 +1,48 @@
+<keymap version="1" name="VSCode (macOS) copy" parent="VSCode OSX">
+  <action id="Back">
+    <keyboard-shortcut first-keystroke="ctrl minus" />
+    <mouse-shortcut keystroke="button4" />
+    <keyboard-shortcut first-keystroke="meta open_bracket" />
+  </action>
+  <action id="ChooseRunConfiguration" />
+  <action id="EditorIndentLineOrSelection" />
+  <action id="EditorUnindentSelection">
+    <keyboard-shortcut first-keystroke="shift tab" />
+  </action>
+  <action id="Forward">
+    <keyboard-shortcut first-keystroke="shift ctrl minus" />
+    <keyboard-shortcut first-keystroke="meta close_bracket" />
+  </action>
+  <action id="Images.Editor.ToggleGrid" />
+  <action id="Kotlin.RunScratch" />
+  <action id="MergeAllWindowsAction">
+    <keyboard-shortcut first-keystroke="meta alt w" />
+  </action>
+  <action id="NextDiff">
+    <keyboard-shortcut first-keystroke="meta quote" />
+  </action>
+  <action id="NextProjectWindow">
+    <keyboard-shortcut first-keystroke="meta back_quote" />
+  </action>
+  <action id="PreviousDiff">
+    <keyboard-shortcut first-keystroke="shift f7" />
+    <keyboard-shortcut first-keystroke="meta semicolon" />
+  </action>
+  <action id="PreviousProjectWindow">
+    <keyboard-shortcut first-keystroke="shift meta back_quote" />
+  </action>
+  <action id="Rerun">
+    <keyboard-shortcut first-keystroke="shift meta f5" />
+  </action>
+  <action id="RerunFailedTests" />
+  <action id="Scala.RunWorksheet" />
+  <action id="Scala.ShowImplicits">
+    <keyboard-shortcut first-keystroke="shift ctrl alt equals" />
+    <keyboard-shortcut first-keystroke="shift ctrl alt add" />
+  </action>
+  <action id="ShowProjectStructureSettings" />
+  <action id="UsageView.Rerun">
+    <keyboard-shortcut first-keystroke="shift meta f5" />
+  </action>
+  <action id="copilot.disposeInlays" />
+</keymap>

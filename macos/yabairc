@@ -1,0 +1,169 @@
+#!/usr/bin/env sh
+
+# ====================================================================
+# YABAI CONFIGURATION - Window and Desktop Management
+# ====================================================================
+# This configuration file controls how yabai manages your windows,
+# desktops (spaces), and displays.
+#
+# IMPORTANT: After editing this file, restart yabai with:
+#   yabai --restart-service
+# ====================================================================
+
+# --------------------------------------------------------------------
+# GLOBAL SETTINGS
+# --------------------------------------------------------------------
+
+# Layout mode for new spaces (bsp, stack, float)
+# - bsp: Binary space partitioning (tiling)
+# - stack: All windows stacked on top of each other
+# - float: Windows float freely (recommended for your use case)
+yabai -m config layout float
+
+# Window placement when in bsp mode
+yabai -m config window_placement second_child
+
+# Padding and gaps (set to 0 for your use case since you want traditional behavior)
+yabai -m config top_padding    0
+yabai -m config bottom_padding 0
+yabai -m config left_padding   0
+yabai -m config right_padding  0
+yabai -m config window_gap     0
+
+# Mouse settings
+yabai -m config mouse_follows_focus off
+yabai -m config focus_follows_mouse off
+
+# Window opacity (set to 1.0 for no transparency)
+yabai -m config window_opacity off
+yabai -m config active_window_opacity 1.0
+yabai -m config normal_window_opacity 0.95
+
+# Window borders (optional visual indicator)
+yabai -m config window_border off
+yabai -m config window_border_width 4
+yabai -m config active_window_border_color 0xff775759
+yabai -m config normal_window_border_color 0xff555555
+
+# --------------------------------------------------------------------
+# SPACE (DESKTOP) LABELS - For easier identification
+# --------------------------------------------------------------------
+# These labels help you identify spaces by name in addition to number
+# You can reference spaces by label in commands, e.g., "yabai -m space main"
+
+yabai -m space 1 --label main
+yabai -m space 2 --label secondary
+yabai -m space 3 --label communication
+yabai -m space 4 --label workspace
+yabai -m space 5 --label media
+yabai -m space 6 --label dev1
+yabai -m space 7 --label dev2
+yabai -m space 8 --label misc
+
+# --------------------------------------------------------------------
+# APPLICATION RULES - Assign Apps to Specific Desktops
+# --------------------------------------------------------------------
+# Syntax: yabai -m rule --add app="^AppName$" space=NUMBER
+#
+# To find exact app names, run: yabai -m query --windows | jq '.[].app'
+#
+# The "^" at start and "$" at end ensure exact matching
+# --------------------------------------------------------------------
+
+# DESKTOP 3 - Communication
+yabai -m rule --add app="^Slack$" space=3
+
+# DESKTOP 5 - Media & Messaging
+yabai -m rule --add app="^WhatsApp$" space=5
+yabai -m rule --add app="^Spotify$" space=5
+
+# DESKTOP 7 - Development
+yabai -m rule --add app="^IntelliJ IDEA$" space=7
+# Alternative IntelliJ names you might encounter:
+# yabai -m rule --add app="^IntelliJ IDEA CE$" space=7
+# yabai -m rule --add app="^IntelliJ IDEA Ultimate$" space=7
+
+# --------------------------------------------------------------------
+# ADD YOUR APPS HERE - Template for 10-12 apps
+# --------------------------------------------------------------------
+# Uncomment and modify these examples for your specific apps:
+
+# DESKTOP 1 - Example: Web Browser
+# yabai -m rule --add app="^Google Chrome$" space=1
+# yabai -m rule --add app="^Safari$" space=1
+# yabai -m rule --add app="^Firefox$" space=1
+
+# DESKTOP 2 - Example: Email
+# yabai -m rule --add app="^Mail$" space=2
+# yabai -m rule --add app="^Microsoft Outlook$" space=2
+
+# DESKTOP 4 - Example: Notes/Documents
+# yabai -m rule --add app="^Notion$" space=4
+# yabai -m rule --add app="^Obsidian$" space=4
+# yabai -m rule --add app="^Notes$" space=4
+
+# DESKTOP 6 - Example: Terminal
+# yabai -m rule --add app="^iTerm2$" space=6
+# yabai -m rule --add app="^Terminal$" space=6
+
+# DESKTOP 8 - Default for unlisted apps (handled by system default)
+# No rule needed - apps without rules will open in current space
+# You can manually move them to space 8 using keyboard shortcuts
+
+# --------------------------------------------------------------------
+# SPECIAL APP RULES - Apps that should not be tiled
+# --------------------------------------------------------------------
+# Some apps work better as floating windows (preferences, dialogs, etc.)
+
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^Archive Utility$" manage=off
+yabai -m rule --add app="^App Store$" manage=off
+yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="^Activity Monitor$" manage=off
+yabai -m rule --add app="^Finder$" manage=off
+
+# Floating windows by title pattern
+yabai -m rule --add title="^Preferences$" manage=off
+yabai -m rule --add title="^Settings$" manage=off
+yabai -m rule --add title="^About" manage=off
+
+# --------------------------------------------------------------------
+# DISPLAY (MONITOR) CONFIGURATION
+# --------------------------------------------------------------------
+# Note: Display assignments work best when displays are consistently connected
+# Display 1 = Primary monitor, Display 2 = Secondary monitor
+#
+# To assign specific spaces to specific displays, you would typically
+# arrange them manually via Mission Control, then yabai remembers them.
+#
+# For your setup:
+# - Spaces 1-5 should be on Display 1 (primary)
+# - Spaces 6-8 should be on Display 2 (secondary)
+#
+# Create spaces via Mission Control (F3 or swipe up with 3 fingers),
+# then drag them to the appropriate display. yabai will respect this setup.
+
+# --------------------------------------------------------------------
+# SIGNALS - Advanced automation (optional)
+# --------------------------------------------------------------------
+# Signals allow you to run commands when certain events occur
+# Example: Focus a window when it's created
+# yabai -m signal --add event=window_created action="yabai -m window $YABAI_WINDOW_ID --focus"
+
+# --------------------------------------------------------------------
+# TIPS FOR EXTENDING THIS CONFIG
+# --------------------------------------------------------------------
+# 1. Find app names: yabai -m query --windows | jq '.[].app'
+# 2. Find space info: yabai -m query --spaces
+# 3. Find display info: yabai -m query --displays
+# 4. Test rules without restart: yabai -m rule --add app="^AppName$" space=3
+# 5. View all rules: yabai -m rule --list
+# 6. Remove a rule: yabai -m rule --remove <label>
+# 7. Restart yabai: yabai --restart-service
+# 8. Check yabai logs: tail -f /usr/local/var/log/yabai/yabai.err.log
+#
+# More documentation: https://github.com/koekeishiya/yabai/wiki
+# ====================================================================
+
+echo "yabai configuration loaded successfully"

@@ -1,0 +1,453 @@
+[
+  {
+    "plugin_id": "RooseveltAdvisors.herdr-leap",
+    "name": "herdr-leap",
+    "version": "0.2.1",
+    "min_herdr_version": "0.7.0",
+    "description": "tmux-jump-inspired word-start copy-mode jump for Herdr; credits schasse/tmux-jump",
+    "manifest_path": "/Users/shameek/.config/herdr/plugins/github/RooseveltAdvisors.herdr-leap-9992071554dc/herdr-plugin.toml",
+    "plugin_root": "/Users/shameek/.config/herdr/plugins/github/RooseveltAdvisors.herdr-leap-9992071554dc",
+    "enabled": true,
+    "platforms": [
+      "linux",
+      "macos"
+    ],
+    "build": [
+      {
+        "command": [
+          "cargo",
+          "build",
+          "--release",
+          "--locked"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "open",
+        "title": "Leap (jump)",
+        "description": "Hint a word start and place the source pane's copy-mode cursor",
+        "command": [
+          "./scripts/open-leap"
+        ]
+      },
+      {
+        "id": "smart-down",
+        "title": "Smart pane down",
+        "description": "Forward Ctrl-j into Vim/Neovim/fzf, else focus the down neighbor",
+        "command": [
+          "./target/release/herdr-leap",
+          "--mode",
+          "smart-nav",
+          "--direction",
+          "down"
+        ]
+      },
+      {
+        "id": "smart-left",
+        "title": "Smart pane left",
+        "description": "Forward Ctrl-h into Vim/Neovim/fzf, else focus the left neighbor",
+        "command": [
+          "./target/release/herdr-leap",
+          "--mode",
+          "smart-nav",
+          "--direction",
+          "left"
+        ]
+      },
+      {
+        "id": "smart-right",
+        "title": "Smart pane right",
+        "description": "Forward Ctrl-l into Vim/Neovim/fzf, else focus the right neighbor",
+        "command": [
+          "./target/release/herdr-leap",
+          "--mode",
+          "smart-nav",
+          "--direction",
+          "right"
+        ]
+      },
+      {
+        "id": "smart-up",
+        "title": "Smart pane up",
+        "description": "Forward Ctrl-k into Vim/Neovim/fzf, else focus the up neighbor",
+        "command": [
+          "./target/release/herdr-leap",
+          "--mode",
+          "smart-nav",
+          "--direction",
+          "up"
+        ]
+      }
+    ],
+    "panes": [
+      {
+        "id": "leap",
+        "title": "herdr-leap",
+        "placement": "popup",
+        "command": [
+          "./target/release/herdr-leap"
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "RooseveltAdvisors",
+      "repo": "herdr-leap",
+      "resolved_commit": "be238808187636a080b46c547b95cbac9ee9988e",
+      "managed_path": "/Users/shameek/.config/herdr/plugins/github/RooseveltAdvisors.herdr-leap-9992071554dc",
+      "installed_unix_ms": 1785147534525
+    }
+  },
+  {
+    "plugin_id": "herdr-focus-notify",
+    "name": "Herdr Focus Notify",
+    "version": "0.2.1",
+    "min_herdr_version": "0.7.0",
+    "description": "Clickable desktop notifications that focus the relevant Herdr agent pane.",
+    "manifest_path": "/Users/shameek/.config/herdr/plugins/github/herdr-focus-notify-ccefc5102048/herdr-plugin.toml",
+    "plugin_root": "/Users/shameek/.config/herdr/plugins/github/herdr-focus-notify-ccefc5102048",
+    "enabled": true,
+    "platforms": [
+      "macos"
+    ],
+    "build": [
+      {
+        "command": [
+          "cargo",
+          "build",
+          "--release"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "test",
+        "title": "Send test focus notification",
+        "command": [
+          "target/release/herdr-focus-notify",
+          "--test"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "on": "pane.agent_status_changed",
+        "command": [
+          "target/release/herdr-focus-notify"
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "yankewei",
+      "repo": "herdr-focus-notify",
+      "resolved_commit": "75796d4a9d6e9435bcc354b4c88eb56ef67cf385",
+      "managed_path": "/Users/shameek/.config/herdr/plugins/github/herdr-focus-notify-ccefc5102048",
+      "installed_unix_ms": 1782733222233
+    }
+  },
+  {
+    "plugin_id": "herdr.collie",
+    "name": "Collie",
+    "version": "0.2.0",
+    "min_herdr_version": "0.7.0",
+    "description": "Mobile web UI to monitor and reply to your agent herd, served over Tailscale",
+    "manifest_path": "/Users/shameek/.config/herdr/plugins/github/herdr.collie-1edf0e1e987e/herdr-plugin.toml",
+    "plugin_root": "/Users/shameek/.config/herdr/plugins/github/herdr.collie-1edf0e1e987e",
+    "enabled": true,
+    "platforms": [
+      "linux",
+      "macos"
+    ],
+    "build": [
+      {
+        "platforms": [
+          "linux",
+          "macos"
+        ],
+        "command": [
+          "bash",
+          "scripts/collie-ctl.sh",
+          "build"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "restart",
+        "title": "Restart web bridge",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "scripts/collie-ctl.sh",
+          "restart"
+        ]
+      },
+      {
+        "id": "start",
+        "title": "Start web bridge",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "scripts/collie-ctl.sh",
+          "start"
+        ]
+      },
+      {
+        "id": "status",
+        "title": "Bridge status",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "scripts/collie-ctl.sh",
+          "status"
+        ]
+      },
+      {
+        "id": "stop",
+        "title": "Stop web bridge",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "scripts/collie-ctl.sh",
+          "stop"
+        ]
+      },
+      {
+        "id": "uninstall",
+        "title": "Uninstall web bridge (remove service)",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "scripts/collie-ctl.sh",
+          "uninstall"
+        ]
+      },
+      {
+        "id": "update",
+        "title": "Update plugin",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "scripts/collie-ctl.sh",
+          "update"
+        ]
+      },
+      {
+        "id": "url",
+        "title": "Show bridge URL",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "scripts/collie-ctl.sh",
+          "url"
+        ]
+      },
+      {
+        "id": "version",
+        "title": "Show version",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "scripts/collie-ctl.sh",
+          "version"
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "AltanS",
+      "repo": "collie",
+      "resolved_commit": "faa55f823a9e992d710a041c7239d94f41e7eb1c",
+      "managed_path": "/Users/shameek/.config/herdr/plugins/github/herdr.collie-1edf0e1e987e",
+      "installed_unix_ms": 1782983833949
+    }
+  },
+  {
+    "plugin_id": "lancodev.database",
+    "name": "Database",
+    "version": "0.2.0",
+    "min_herdr_version": "0.7.0",
+    "description": "TUI database client — SQLite, MySQL/MariaDB, PostgreSQL",
+    "manifest_path": "/Users/shameek/Desktop/code/repositories/herdr-database/herdr-plugin.toml",
+    "plugin_root": "/Users/shameek/Desktop/code/repositories/herdr-database",
+    "enabled": true,
+    "platforms": [
+      "macos",
+      "linux"
+    ],
+    "build": [
+      {
+        "command": [
+          "go",
+          "build",
+          "-o",
+          "bin/herdr-db",
+          "./cmd/herdr-db"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "open",
+        "title": "Open database client",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "/bin/zsh",
+          "-c",
+          "exec \"$HERDR_PLUGIN_ROOT/bin/herdr-db\" open"
+        ]
+      }
+    ],
+    "panes": [
+      {
+        "id": "client",
+        "title": "database",
+        "placement": "tab",
+        "command": [
+          "/bin/zsh",
+          "-c",
+          "exec \"$HERDR_PLUGIN_ROOT/bin/herdr-db\" client"
+        ]
+      }
+    ],
+    "source": {
+      "kind": "local"
+    }
+  },
+  {
+    "plugin_id": "ogulcancelik.github-start",
+    "name": "GitHub Start",
+    "version": "0.1.0",
+    "min_herdr_version": "0.7.0",
+    "description": "Start a Herdr tab from a GitHub issue, PR, or discussion.",
+    "manifest_path": "/Users/shameek/.config/herdr/plugins/github/ogulcancelik.github-start-00499f58c585/herdr-plugin.toml",
+    "plugin_root": "/Users/shameek/.config/herdr/plugins/github/ogulcancelik.github-start-00499f58c585",
+    "enabled": true,
+    "platforms": [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "actions": [
+      {
+        "id": "open",
+        "title": "Start from GitHub item",
+        "contexts": [
+          "workspace",
+          "tab",
+          "pane"
+        ],
+        "command": [
+          "node",
+          "open.js"
+        ]
+      }
+    ],
+    "panes": [
+      {
+        "id": "prompt",
+        "title": "GitHub Start",
+        "placement": "overlay",
+        "command": [
+          "node",
+          "prompt.js"
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "ogulcancelik",
+      "repo": "herdr-plugin-github-start",
+      "resolved_commit": "7bba90a31047414b90654ee3346ce42a7a4443e9",
+      "managed_path": "/Users/shameek/.config/herdr/plugins/github/ogulcancelik.github-start-00499f58c585",
+      "installed_unix_ms": 1782733797125
+    }
+  },
+  {
+    "plugin_id": "persiyanov.reviewr",
+    "name": "reviewr",
+    "version": "0.4.0",
+    "min_herdr_version": "0.7.0",
+    "description": "Native terminal code-review sidebar for herdr.",
+    "manifest_path": "/Users/shameek/.config/herdr/plugins/github/persiyanov.reviewr-e87b654a74f8/herdr-plugin.toml",
+    "plugin_root": "/Users/shameek/.config/herdr/plugins/github/persiyanov.reviewr-e87b654a74f8",
+    "enabled": true,
+    "platforms": [
+      "macos",
+      "linux"
+    ],
+    "build": [
+      {
+        "command": [
+          "bash",
+          "herdr/install.sh"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "toggle",
+        "title": "reviewr: toggle sidebar",
+        "contexts": [
+          "pane",
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "herdr/sidebar.sh",
+          "toggle"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "on": "worktree.created",
+        "command": [
+          "bash",
+          "herdr/sidebar.sh",
+          "open"
+        ]
+      }
+    ],
+    "panes": [
+      {
+        "id": "sidebar",
+        "title": "reviewr",
+        "placement": "split",
+        "command": [
+          "sh",
+          "-c",
+          "exec \"$HERDR_PLUGIN_ROOT/bin/herdr-reviewr\""
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "persiyanov",
+      "repo": "herdr-reviewr",
+      "resolved_commit": "0a65fe91cc39c38309b66ab2508f75266e7dd6de",
+      "managed_path": "/Users/shameek/.config/herdr/plugins/github/persiyanov.reviewr-e87b654a74f8",
+      "installed_unix_ms": 1782727972476
+    }
+  }
+]
